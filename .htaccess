@@ -1,0 +1,37 @@
+#Создан на сайте https://c-wd.ru/tools/htaccess/
+
+Options +FollowSymLinks
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^.]+)$ $1.php [NC,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^.]+)$ $1.html [NC,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^.]+)$ $1.htm [NC,L]
+
+# Отображение ошибок php
+php_value display_errors 1
+php_value display_startup_errors 1
+
+# Убираем лишние слеши на конце URL
+RewriteCond %{THE_REQUEST} //
+RewriteRule ^(.*)$ http://%{HTTP_HOST}/$0 [R=301,L]
+
+# Убираем index.html на конце
+RewriteCond %{REQUEST_URI} ^(.*)/index\.html$
+RewriteRule ^(.*)index\.html$ http://%{HTTP_HOST}/$1 [R=301,L]
+
+# Защита сайта от спам ссылок
+RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
+RewriteRule ^(.*)$ index.php [F,L]
+php_value default_charset utf-8
+AddType 'text/html; charset=utf-8' .html .htm .shtml
+
+# dnwr_ip   172.20.10.2
+# dnwr_host custom-host
+# dnwr_port 8648
