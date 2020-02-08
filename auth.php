@@ -65,6 +65,6 @@ $result = mysql_query("SELECT * FROM `formareg`.`user` username='$username'", $d
                         <h3>Извините, введённый вами username или пароль неверный." . "
                         <a href='index.php'> <b>Назад</b> </a></h3></div></body>");
             }
-        }
-}*/
+        }*/
+}
 ?>
